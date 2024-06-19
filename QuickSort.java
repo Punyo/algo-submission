@@ -1,3 +1,4 @@
+
 public class QuickSort extends Sorts {
 
     public QuickSort(int[] data) {
@@ -19,6 +20,7 @@ public class QuickSort extends Sorts {
         }
     }
 
+    // ピボットを選択し、データを分割する
     private int partition(int low, int high) {
         int mid = low + (high - low) / 2;  
         int pivot = data[mid];  
@@ -35,6 +37,7 @@ public class QuickSort extends Sorts {
         return i + 1;
     }
 
+    // データの入れ替え
     private void swap(int i, int j) {
         int temp = data[i];
         data[i] = data[j];
