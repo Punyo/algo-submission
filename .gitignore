@@ -1,2 +1,4 @@
 report/*
-output.txt
+output/*
+additionaldata_output/*
+*.log

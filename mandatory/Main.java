@@ -1,3 +1,4 @@
+package mandatory;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.nio.file.Files;
@@ -12,16 +13,12 @@ public class Main {
      * データセットが格納されているディレクトリのパスを表す配列
      */
     private static final DatasetDir[] DATASET_DIRS = {
-            new DatasetDir("/home/staff/ebn02865/lecture/data-algo/10000"),
-            new DatasetDir("/home/staff/ebn02865/lecture/data-algo/50000"),
-            new DatasetDir("/home/staff/ebn02865/lecture/data-algo/100000"),
-            new DatasetDir("/home/staff/ebn02865/lecture/data-algo/500000"),
             new DatasetDir("/home/staff/ebn02865/lecture/data-algo/1000000")
     };
     /**
      * 結果を出力するファイルのパス
      */
-    private static final Path OUTPUT_PATH = Path.of("/home/g35714/cnt14029/データ構造とアルゴリズム/output1.txt");
+    private static final Path OUTPUT_PATH = Path.of("/home/g35714/cnt14029/データ構造とアルゴリズム/output/output4.txt");
     /**
      * 試行回数
      */
@@ -113,9 +110,9 @@ public class Main {
     /**
      * データセットが格納されているディレクトリを表すクラス
      */
-    private static class DatasetDir {
-        private final DatasetFile[] FILES;
-        private final File DIR;
+    public static class DatasetDir {
+        public final DatasetFile[] FILES;
+        public final File DIR;
 
         /**
          * 指定されたパスを使用して、ディレクトリのもとにあるデータセットを読み込む
@@ -140,13 +137,14 @@ public class Main {
                 FILES = null;
             }
         }
+
     }
 
     /**
      * データセットのファイルを表すクラス
      */
-    private static class DatasetFile {
-        private final File FILE;
+    public static class DatasetFile {
+        public final File FILE;
         private ArrayList<long[]> PROCESSING_TIMES = new ArrayList<>();
         private List<String> s;
         private Sorts[] sorts;
@@ -172,9 +170,9 @@ public class Main {
                     StringBuilder sb = new StringBuilder();
                     if (sorts == null) {
                         sorts = new Sorts[] {
-                                new SelectionSort(data),
-                                new QuickSort(data),
-                                new RadixSort(data)
+                                // new SelectionSort(data),
+                                new QuickSort(data)
+                              //  new RadixSort(data)
                         };
                     }
                     long[] PROCESSING_TIMES = new long[sorts.length];

@@ -1,3 +1,4 @@
+package mandatory;
 
 public class SelectionSort extends Sorts {
 
