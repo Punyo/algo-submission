@@ -13,7 +13,7 @@ public class RadixSort_OnlyArray extends Sorts {
 
     @Override
     public long sort() {
-        // long startTime = System.currentTimeMillis();
+         long startTime = System.currentTimeMillis();
         String[] temp = new String[data.length];
         int longestnum = -1;
         // 最長の桁数を取得
@@ -29,27 +29,27 @@ public class RadixSort_OnlyArray extends Sorts {
                 temp[i] = "0" + temp[i];
             }
         }
-        long startTime = System.currentTimeMillis();
-        // 桁別にソート
-        for (int i = longestnum - 1; i >= 0; i--) {
-            String[][] bucket = new String[10][temp.length];
-            int[] count = new int[10];
-
-            for (int a = 0; a < temp.length; a++) {
-                int digit = Integer.parseInt(String.valueOf(temp[a].charAt(i)));
-                bucket[digit][count[digit]] = temp[a];
-                count[digit]++;
-            }
-
-            int index = 0;
-            for (int j = 0; j < 10; j++) {
-                for (int k = 0; k < count[j]; k++) {
-                    temp[index] = bucket[j][k];
-                    index++;
-                }
-            }
-        }
         return System.currentTimeMillis() - startTime;
+        // 桁別にソート
+        // for (int i = longestnum - 1; i >= 0; i--) {
+        //     String[][] bucket = new String[10][temp.length];
+        //     int[] count = new int[10];
+
+        //     for (int a = 0; a < temp.length; a++) {
+        //         int digit = Integer.parseInt(String.valueOf(temp[a].charAt(i)));
+        //         bucket[digit][count[digit]] = temp[a];
+        //         count[digit]++;
+        //     }
+
+        //     int index = 0;
+        //     for (int j = 0; j < 10; j++) {
+        //         for (int k = 0; k < count[j]; k++) {
+        //             temp[index] = bucket[j][k];
+        //             index++;
+        //         }
+        //     }
+        // }
+      
         // //元の配列に戻す
         // for (int i = 0; i < temp.length; i++) {
         // data[i] = Integer.parseInt(temp[i]);

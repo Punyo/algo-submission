@@ -1,4 +1,5 @@
 package mandatory;
+
 import java.io.*;
 import java.lang.reflect.Array;
 import java.nio.file.Files;
@@ -7,25 +8,31 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import optional.RadixSort_OnlyArray;
+
 public class Main {
 
     /**
      * データセットが格納されているディレクトリのパスを表す配列
      */
     private static final DatasetDir[] DATASET_DIRS = {
+            new DatasetDir("/home/staff/ebn02865/lecture/data-algo/10000"),
+            new DatasetDir("/home/staff/ebn02865/lecture/data-algo/50000"),
+            new DatasetDir("/home/staff/ebn02865/lecture/data-algo/100000"),
+            new DatasetDir("/home/staff/ebn02865/lecture/data-algo/500000"),
             new DatasetDir("/home/staff/ebn02865/lecture/data-algo/1000000")
     };
     /**
      * 結果を出力するファイルのパス
      */
-    private static final Path OUTPUT_PATH = Path.of("/home/g35714/cnt14029/データ構造とアルゴリズム/output/output4.txt");
+    private static final Path OUTPUT_PATH = Path.of("/home/g35714/cnt14029/データ構造とアルゴリズム/output/output5.txt");
     /**
      * 試行回数
      */
     private static final int ATTEMPTS = 10;
 
     public static void main(String[] args) {
-        //DATASET_DIRを用いて、ソートを実行
+        // DATASET_DIRを用いて、ソートを実行
         try (BufferedWriter writer = Files.newBufferedWriter(OUTPUT_PATH)) {
             for (DatasetDir datasetDir : DATASET_DIRS) {
                 if (datasetDir.FILES != null) {
@@ -40,7 +47,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        //結果を出力するファイルが存在しない場合作成
+        // 結果を出力するファイルが存在しない場合作成
         if (!Files.exists(OUTPUT_PATH)) {
             try {
                 Files.createFile(OUTPUT_PATH);
@@ -53,7 +60,7 @@ public class Main {
             for (DatasetDir datasetDir : DATASET_DIRS) {
                 if (datasetDir.FILES != null) {
                     for (DatasetFile datasetFile : datasetDir.FILES) {
-                        //ファイルごとの平均処理時間をファイルに出力
+                        // ファイルごとの平均処理時間をファイルに出力
                         if (datasetFile != null) {
                             long[] averageProcessingTimes = datasetFile.getAverageProcessingTimeofAllAttempts();
                             StringBuilder sb = new StringBuilder();
@@ -68,7 +75,7 @@ public class Main {
                         if (processingTimesbySortAlgorithm == null) {
                             processingTimesbySortAlgorithm = new ArrayList[datasetFile.sorts.length];
                         }
-                        
+
                         for (int i = 0; i < datasetFile.sorts.length; i++) {
                             if (processingTimesbySortAlgorithm[i] == null) {
                                 processingTimesbySortAlgorithm[i] = new ArrayList<>();
@@ -77,7 +84,7 @@ public class Main {
                         }
                     }
 
-                    //分散を計算
+                    // 分散を計算
                     double[] variances = new double[processingTimesbySortAlgorithm.length];
                     for (int i = 0; i < processingTimesbySortAlgorithm.length; i++) {
                         long[] processingTimes = processingTimesbySortAlgorithm[i].stream()
@@ -91,7 +98,7 @@ public class Main {
                         variances[i] = variance;
                     }
 
-                    //データセットが格納されているディレクトリごとの分散をファイルに出力
+                    // データセットが格納されているディレクトリごとの分散をファイルに出力
                     StringBuilder sb = new StringBuilder();
                     sb.append(datasetDir.DIR.toPath().toString()).append("\n");
                     for (int i = 0; i < processingTimesbySortAlgorithm.length; i++) {
@@ -162,7 +169,7 @@ public class Main {
                     if (s == null) {
                         s = Files.readAllLines(FILE.toPath());
                     }
-                    //データをint型の配列に変換
+                    // データをint型の配列に変換
                     int[] data = new int[s.size()];
                     for (int i = 0; i < s.size(); i++) {
                         data[i] = Integer.parseInt(s.get(i));
@@ -170,20 +177,20 @@ public class Main {
                     StringBuilder sb = new StringBuilder();
                     if (sorts == null) {
                         sorts = new Sorts[] {
-                                // new SelectionSort(data),
-                                new QuickSort(data)
-                              //  new RadixSort(data)
+                                 new SelectionSort(data),
+                                new QuickSort(data),
+                                new RadixSort(data)
                         };
                     }
                     long[] PROCESSING_TIMES = new long[sorts.length];
-                    //データを初期状態に戻した後、ソートを実行
+                    // データを初期状態に戻した後、ソートを実行
                     for (int i = 0; i < sorts.length; i++) {
                         sorts[i].reset();
                         PROCESSING_TIMES[i] = sorts[i].sort();
                     }
                     this.PROCESSING_TIMES.add(PROCESSING_TIMES);
 
-                    //結果を出力
+                    // 結果を出力
                     System.out.println("ファイル名：" + FILE.getName());
                     System.out.println("試行回数：" + ia);
                     for (int i = 0; i < sorts.length; i++) {
